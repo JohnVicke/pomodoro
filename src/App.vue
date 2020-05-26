@@ -1,21 +1,20 @@
 <template>
   <v-app>
+    <NavBar style="position:fixed; z-index: 1;" />
     <v-content>
-      <LandingPage >
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import LandingPage from "./components/LandingPage.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default Vue.extend({
   name: "App",
 
-  components: {
-    LandingPage
-  },
+  components: { NavBar },
 
   data: () => ({
     //

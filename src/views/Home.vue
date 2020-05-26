@@ -1,17 +1,21 @@
 <template>
   <div class="home">
-    <LandingPage msg="hello world" />
+    <LandingPage />
+    <About />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
+import { Component, Vue } from "vue-property-decorator";
 import LandingPage from "@/components/LandingPage.vue";
+import About from "@/components/About.vue";
 
-export default {
-  name: "Home",
+@Component({
   components: {
-    LandingPage
+    LandingPage,
+    About
   }
-};
+})
+export default class Home extends Vue {}
 </script>
