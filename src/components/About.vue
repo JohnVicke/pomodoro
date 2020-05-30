@@ -50,7 +50,7 @@ export default class About extends Vue {}
 
 <style lang="scss" scoped>
 .text-desc {
-  border-left: 10px #f48985 solid;
+  border-left: 5px #f48985 solid;
   padding-left: 1rem;
   margin: 3rem 1rem;
   color: #5a5a5a;

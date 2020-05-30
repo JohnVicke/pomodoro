@@ -13,7 +13,7 @@
           color="#C13A3A"
           dark
           large
-          @click="$router.push({path: 'Timer'})"
+          @click="$router.push({path: 'pomodoro'})"
         >Get started</v-btn>
         <v-icon class="mt-12">mdi-chevron-down</v-icon>
       </div>
