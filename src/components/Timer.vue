@@ -1,14 +1,13 @@
 <template>
   <div class="timer pt-12">
     <div class="timer-container py-12 px-4">
-      <h1 class="text-center">Currently on Pomodoro #1</h1>
-      <div class="card">
+      <h1 class="text-center">{{`Currently on Pomodoro #${currentPomodoro}`}}</h1>
+      <div :class="initTimer ? 'card extended': 'card' ">
         <div class="card-menu d-flex flex-row justify-center pt-2 mt-4">
           <p
             :class="`mx-2 menu-item ${item.active ? 'active' : ''}`"
             v-for="item in menuItems"
             :key="item.name"
-            @click="selection(item)"
           >{{item.name}}</p>
         </div>
         <div class="clock text-center">
@@ -61,7 +60,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import Tasks from "@/components/Tasks.vue";
 interface TimerInterface {
-  index: number;
   timer: number;
   name: string;
   active: boolean;
@@ -73,32 +71,25 @@ interface TimerInterface {
   }
 })
 export default class Timer extends Vue {
-  selectedTimer = 25;
-  timerState = {
-    Pomodoro: 25,
-    "Short Break": 5,
-    "Long Break": 15
-  };
+  currentPomodoro = 1;
+  selectedTimerIndex = 0;
   secondsPassed = 0;
   minutesPassed = 0;
   timerInterval = 0;
   initTimer = false;
   menuItems = [
     {
-      index: 0,
-      timer: 25,
+      timer: 1,
       name: "Pomodoro",
       active: true
     },
     {
-      index: 1,
-      timer: 5,
+      timer: 1,
       name: "Short Break",
       active: false
     },
     {
-      index: 2,
-      timer: 15,
+      timer: 1,
       name: "Long Break",
       active: false
     }
@@ -110,10 +101,11 @@ export default class Timer extends Vue {
     const {
       timerInterval,
       menuItems,
-      selectedTimer,
+      selectedTimerIndex,
       minutesPassed,
       secondsPassed
     } = this;
+    const selectedTimer = menuItems[selectedTimerIndex].timer;
     let formatMinutes = `${selectedTimer - minutesPassed}`;
     let formatSeconds = secondsPassed === 0 ? "00" : `${60 - secondsPassed}`;
     if (60 - this.secondsPassed < 10) {
@@ -123,11 +115,24 @@ export default class Timer extends Vue {
       formatMinutes = `0${selectedTimer - minutesPassed}`;
     }
     if (minutesPassed === selectedTimer && secondsPassed === 59) {
-      clearInterval(timerInterval);
+      this.stopTimer();
+      this.incrementTimer();
       return "00:00";
     }
     return `${formatMinutes}:${formatSeconds}`;
   }
+
+  incrementTimer() {
+    this.selectedTimerIndex++;
+
+    if (this.selectedTimerIndex === this.menuItems.length) {
+      this.currentPomodoro++;
+      this.selectedTimerIndex = 0;
+    }
+
+    this.selection(this.menuItems[this.selectedTimerIndex]);
+  }
+
   startTimer() {
     if (!this.initTimer) {
       this.initTimer = true;
@@ -140,7 +145,7 @@ export default class Timer extends Vue {
             this.minutesPassed += 1;
           }
         }
-      }, 1000);
+      }, 50);
     }
   }
 
@@ -157,31 +162,23 @@ export default class Timer extends Vue {
   }
 
   resumeTimer(): void {
-    console.log("resumetimer");
     this.isPaused = false;
   }
 
   pauseTimer(): void {
-    console.log("pausedtimer");
     this.isPaused = true;
   }
 
   selection(item: TimerInterface) {
-    this.selectedTimer = item.timer;
     this.menuItems.map(mi => (mi.active = mi === item ? true : false));
   }
 }
 </script>
 <style lang="scss" scoped>
 .timer {
+  background: #f48985;
+
   min-height: 100vh;
-  background: rgb(126, 231, 119);
-  background: linear-gradient(
-    45deg,
-    rgba(126, 231, 119, 1) 0%,
-    rgba(244, 137, 133, 1) 0%,
-    rgba(235, 112, 130, 1) 100%
-  );
 }
 .timer-container {
   margin: 0 auto;
@@ -193,13 +190,20 @@ export default class Timer extends Vue {
   }
 }
 .card {
+  transition: ease-in-out 0.3s;
   background-color: #c13a3a;
   border-radius: 1em;
+  height: 250px;
+  overflow: hidden;
+  transform-origin: top;
+}
+
+.card.extended {
+  height: 300px;
 }
 
 .card-menu {
   .menu-item {
-    cursor: pointer;
     user-select: none;
     font-weight: 700;
     font-size: 0.9rem;

@@ -15,11 +15,12 @@
         filled
         append-icon="mdi-plus"
         @click:append="addTask"
-      >hgello</v-text-field>
+      ></v-text-field>
     </div>
-    <h1 class="tasks-header">Tasks</h1>
-    <div class="task-desc" v-if="tasks.length === 0">No current tasks!</div>
-    <div v-for="(t, index) in tasks" :key="t" class="task">
+    <transition name="slide-fade">
+      <h1 v-if="tasks.length !== 0" class="tasks-header">Tasks</h1>
+    </transition>
+    <div v-for="(t, index) in tasks" :key="t.name" class="task">
       <div class="info-container">
         <v-checkbox v-model="t.active" dark></v-checkbox>
         <p :class="t.active ? 'strike' : ''">{{t.name}}</p>
@@ -70,6 +71,19 @@ export default class Tasks extends Vue {
 </script>
 
 <style lang="scss" scoped>
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 .tasks-header {
   font-family: Montserrat;
   color: #fff;

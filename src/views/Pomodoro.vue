@@ -1,7 +1,6 @@
 <template>
   <div class="pomodoro">
     <Timer />
-    <Tasks />
   </div>
 </template>
 
