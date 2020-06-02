@@ -1,10 +1,11 @@
 <template>
-  <div class="bg pt-12 pr-0">
+  <div :class="$vuetify.breakpoint.xs ? 'mobile-bg pt-12 pr-0' : 'desktop-bg pt-12 pr-0'">
     <v-container class="landing-page">
       <div class="ml-6">
         <div class="logo"></div>
       </div>
       <div class="d-flex flex-column align-center">
+        <div v-if="$vuetify.breakpoint.xs" class="extra-margin"></div>
         <v-btn
           style="font-family: Montserrat; font-weight: bold; "
           class="get-started-btn"
@@ -17,30 +18,39 @@
           large
           @click="$router.push({path: 'pomodoro'})"
         >Get started</v-btn>
-        <v-icon class="mt-12">mdi-chevron-down</v-icon>
+        <v-icon
+          @click="$vuetify.goTo(700, 300)"
+          :dark="!$vuetify.breakpoint.xs"
+          class="mt-12"
+        >mdi-chevron-down</v-icon>
       </div>
     </v-container>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
-export default class LandingPage extends Vue {
-  @Prop() private msg!: string;
-  hello = "hello world";
-}
+export default class LandingPage extends Vue {}
 </script>
 
 <style scoped>
-.get-started-btn {
-  margin: 12em 0 1em;
+.extra-margin {
+  margin-top: 10em;
 }
-.bg {
+
+.desktop-bg {
+  background: url("../assets/desktop.svg");
+  margin: 0;
+  padding-bottom: 344px;
+  overflow-x: hidden;
+}
+
+.mobile-bg {
+  background: url("../assets/mobile.svg") no-repeat;
   overflow-x: hidden;
   margin: 0;
-  background: url("../assets/Group 1.svg") no-repeat;
 }
 
 .logo {

@@ -1,5 +1,9 @@
 <template>
-  <div class="about-container">
+  <div
+    ref="about"
+    class="about-container"
+    :style="$vuetify.breakpoint.xs ? 'margin: 1em auto;': 'margin: -10em auto;' "
+  >
     <div class="text-desc">
       <h1>How does it work?</h1>
       <ol>
@@ -50,7 +54,6 @@ export default class About extends Vue {}
 
 <style lang="scss" scoped>
 .about-container {
-  margin: 0 auto;
   max-width: 40em;
 }
 

@@ -2,9 +2,7 @@
   <v-app>
     <NavBar style="position:fixed; width: 100%; z-index: 1; " />
     <v-content>
-      <v-slide-x-transition>
-        <router-view />
-      </v-slide-x-transition>
+      <router-view />
     </v-content>
   </v-app>
 </template>
