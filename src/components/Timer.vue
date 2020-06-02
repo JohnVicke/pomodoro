@@ -1,9 +1,9 @@
 <template>
-  <div class="timer">
-    <div class="timer-container">
+  <div class="timer pt-12">
+    <div class="timer-container py-12 px-4">
       <h1 class="text-center">Currently on Pomodoro #1</h1>
       <div class="card">
-        <div class="card-menu d-flex flex-row justify-center px-2 pt-2 mt-4">
+        <div class="card-menu d-flex flex-row justify-center pt-2 mt-4">
           <p
             :class="`mx-2 menu-item ${item.active ? 'active' : ''}`"
             v-for="item in menuItems"
@@ -13,7 +13,43 @@
         </div>
         <div class="clock text-center">
           <h1 class>{{timeLeft()}}</h1>
-          <v-btn class="mb-4" width="200" @click="startTimer" rounded>start</v-btn>
+          <div class="d-flex flex-column align-center">
+            <v-btn
+              v-if="initTimer && isPaused"
+              class="mb-4"
+              width="200"
+              style="font-family: Montserrat;"
+              @click="resumeTimer"
+              rounded
+            >resume</v-btn>
+            <v-btn
+              v-if="initTimer && !isPaused"
+              class="mb-4"
+              width="200"
+              style="font-family: Montserrat;"
+              @click="pauseTimer"
+              rounded
+            >pause</v-btn>
+            <v-btn
+              v-if="!initTimer"
+              class="mb-4"
+              width="200"
+              style="font-family: Montserrat;"
+              @click="startTimer"
+              rounded
+            >start</v-btn>
+            <v-slide-y-transition>
+              <v-btn
+                v-if="initTimer"
+                width="150"
+                style="font-family: Montserrat;"
+                small
+                class="mb-4 white--text"
+                text
+                @click="stopTimer"
+              >stop timer</v-btn>
+            </v-slide-y-transition>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +104,8 @@ export default class Timer extends Vue {
     }
   ];
 
+  isPaused = false;
+
   timeLeft() {
     const {
       timerInterval,
@@ -90,21 +128,42 @@ export default class Timer extends Vue {
     }
     return `${formatMinutes}:${formatSeconds}`;
   }
-
   startTimer() {
     if (!this.initTimer) {
+      this.initTimer = true;
       this.timerInterval = setInterval(() => {
-        if (!this.initTimer) {
-          this.initTimer = true;
-          this.minutesPassed++;
+        if (this.minutesPassed === 0) this.minutesPassed++;
+        if (!this.isPaused) {
+          this.secondsPassed++;
+          if (60 - this.secondsPassed === 0) this.secondsPassed = 0;
+          if (this.secondsPassed % 60 === 0) {
+            this.minutesPassed += 1;
+          }
         }
-        this.secondsPassed++;
-        if (60 - this.secondsPassed === 0) this.secondsPassed = 0;
-        if (this.secondsPassed % 60 === 0) {
-          this.minutesPassed += 1;
-        }
-      }, 100);
+      }, 1000);
     }
+  }
+
+  stopTimer(): void {
+    this.isPaused = false;
+    this.initTimer = false;
+    clearInterval(this.timerInterval);
+    this.resetTimer();
+  }
+
+  resetTimer(): void {
+    this.secondsPassed = 0;
+    this.minutesPassed = 0;
+  }
+
+  resumeTimer(): void {
+    console.log("resumetimer");
+    this.isPaused = false;
+  }
+
+  pauseTimer(): void {
+    console.log("pausedtimer");
+    this.isPaused = true;
   }
 
   selection(item: TimerInterface) {
@@ -125,7 +184,8 @@ export default class Timer extends Vue {
   );
 }
 .timer-container {
-  padding: 4rem 1rem;
+  margin: 0 auto;
+  max-width: 40em;
   color: #fff;
   font-family: Montserrat;
   h1 {
@@ -139,6 +199,8 @@ export default class Timer extends Vue {
 
 .card-menu {
   .menu-item {
+    cursor: pointer;
+    user-select: none;
     font-weight: 700;
     font-size: 0.9rem;
     transition: 0.1s ease-out;

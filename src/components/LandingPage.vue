@@ -1,11 +1,13 @@
 <template>
-  <div class="bg pt-12">
+  <div class="bg pt-12 pr-0">
     <v-container class="landing-page">
-      <div class="logo"></div>
+      <div class="ml-6">
+        <div class="logo"></div>
+      </div>
       <div class="d-flex flex-column align-center">
         <v-btn
           style="font-family: Montserrat; font-weight: bold; "
-          class="mt-4 mb-12"
+          class="get-started-btn"
           width="220px"
           rounded
           primary
@@ -32,6 +34,9 @@ export default class LandingPage extends Vue {
 </script>
 
 <style scoped>
+.get-started-btn {
+  margin: 12em 0 1em;
+}
 .bg {
   overflow-x: hidden;
   margin: 0;
@@ -40,8 +45,8 @@ export default class LandingPage extends Vue {
 
 .logo {
   background: url("../assets/landinglogo.svg") no-repeat;
-  padding-bottom: 550px;
-  margin: 0 2em;
-  width: 100%;
+  padding-bottom: 400px;
+  margin: 0 auto;
+  max-width: 301px;
 }
 </style>

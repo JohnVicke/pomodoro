@@ -5,15 +5,19 @@
       <p>this is lit</p>
       <p>home</p>
     </v-container>
-    <v-container class="d-flex justify-space-between align-top" style="width: 100vw;">
+    <div class="mx-lg-12 mx-4 pt-4 d-flex flex-row justify-space-between align-top">
       <div>
-        <p class="white--text" style="font-family: Esteban">pomodoro timer</p>
+        <p
+          @click="$router.push({path: '/'})"
+          class="white--text"
+          style="font-family: Esteban"
+        >pomodoro timer</p>
       </div>
-      <div class="hamburger-container" @click="onClick()">
+      <div v-if="$vuetify.breakpoint.mdAndDown" class="hamburger-container" @click="onClick()">
         <div :class="getLine1ClassName()"></div>
         <div :class="getLine2ClassName()"></div>
       </div>
-    </v-container>
+    </div>
   </div>
 </template>
 

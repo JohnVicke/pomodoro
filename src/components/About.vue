@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about-container">
     <div class="text-desc">
       <h1>How does it work?</h1>
       <ol>
@@ -49,6 +49,11 @@ export default class About extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+.about-container {
+  margin: 0 auto;
+  max-width: 40em;
+}
+
 .text-desc {
   border-left: 5px #f48985 solid;
   padding-left: 1rem;

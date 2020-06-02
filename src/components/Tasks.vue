@@ -1,5 +1,5 @@
 <template>
-  <div class="tasks mx-4">
+  <div class="tasks mx-auto px-4">
     <div class="new-task d-flex flex-row align-center">
       <v-text-field
         v-on:keyup.enter="onEnter"
@@ -31,7 +31,7 @@
 
 <script lang="ts">
 // @ is an alias to /src
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
 interface Task {
   name: string;
@@ -77,6 +77,7 @@ export default class Tasks extends Vue {
   margin: 0;
 }
 .tasks {
+  max-width: 40em;
   h1 {
     font-family: Montserrat;
     color: #fff;
@@ -89,6 +90,7 @@ export default class Tasks extends Vue {
   flex-direction: row;
 }
 .task {
+  max-width: 40em;
   background-color: rgba(255, 255, 255, 0.05);
   height: 50px;
   display: flex;

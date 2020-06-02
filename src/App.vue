@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <NavBar style="position:fixed; z-index: 1;" />
+    <NavBar style="position:fixed; width: 100%; z-index: 1; " />
     <v-content>
-      <router-view />
+      <v-slide-x-transition>
+        <router-view />
+      </v-slide-x-transition>
     </v-content>
   </v-app>
 </template>
@@ -21,3 +23,5 @@ export default Vue.extend({
   })
 });
 </script>
+<style lang="scss" scoped>
+</style>
