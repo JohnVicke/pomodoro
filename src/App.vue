@@ -4,7 +4,6 @@
         <v-content>
             <router-view />
         </v-content>
-        <span>tailwind init</span>
     </v-app>
 </template>
 
