@@ -1,29 +1,28 @@
 <template>
-  <div :class="$vuetify.breakpoint.xs ? 'mobile-bg pt-12 pr-0' : 'desktop-bg pt-12 pr-0'">
+  <div :class="$vuetify.breakpoint.xs ? 'mobile-bg pt-12 pr-0' : 'desktop-bg pt-12 pr-0 '">
     <v-container class="landing-page">
       <div class="ml-6">
         <div class="logo"></div>
-      </div>
-      <div class="d-flex flex-column align-center">
-        <div v-if="$vuetify.breakpoint.xs" class="extra-margin"></div>
-        <v-btn
-          style="font-family: Montserrat; font-weight: bold; "
-          class="get-started-btn"
-          width="220px"
-          rounded
-          primary
-          elevation="4"
-          color="#C13A3A"
-          dark
-          large
-          @click="$router.push({path: 'pomodoro'})"
-        >Get started</v-btn>
-        <v-icon
-          @click="$vuetify.goTo(700, 300)"
-          :dark="!$vuetify.breakpoint.xs"
-          large
-          class="mt-12"
-        >mdi-chevron-down</v-icon>
+        <div class="d-flex flex-column align-center">
+          <div v-if="$vuetify.breakpoint.xs" class="extra-margin"></div>
+          <v-btn
+            style="font-family: Montserrat; font-weight: bold; "
+            class="get-started-btn"
+            width="300px"
+            primary
+            elevation="4"
+            color="#C13A3A"
+            dark
+            large
+            @click="$router.push({path: 'pomodoro'})"
+          >Get started</v-btn>
+          <v-icon
+            @click="$vuetify.goTo(700, 300)"
+            :dark="!$vuetify.breakpoint.xs"
+            large
+            class="mt-12"
+          >mdi-chevron-down</v-icon>
+        </div>
       </div>
     </v-container>
   </div>
@@ -43,7 +42,7 @@ export default class LandingPage extends Vue {}
 
 .desktop-bg {
   background: url("../assets/desktop.svg");
-  margin: 0;
+  transform: scale(1.01);
   padding-bottom: 275px;
   overflow-x: hidden;
 }
@@ -55,9 +54,9 @@ export default class LandingPage extends Vue {}
 }
 
 .logo {
-  background: url("../assets/landinglogo.svg") no-repeat;
+  background: url("../assets/landinglogo.png") no-repeat;
   padding-bottom: 400px;
   margin: 0 auto;
-  max-width: 301px;
+  max-width: 318px;
 }
 </style>
