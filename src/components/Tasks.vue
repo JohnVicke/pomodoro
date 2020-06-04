@@ -20,26 +20,38 @@
         <transition name="slide-fade">
             <h1 v-if="tasks.length !== 0" class="tasks-header">Tasks</h1>
         </transition>
-        <div v-for="(t, index) in tasks" :key="index" class="task">
-            <div class="info-container">
-                <v-checkbox v-model="t.active" dark></v-checkbox>
-                <p :class="t.active ? 'strike' : ''">{{ t.name }}</p>
+        <draggable
+            :animation="200"
+            ghost-class="moving-card"
+            v-model="tasks"
+            @start="drag = true"
+            @end="drag = false"
+        >
+            <div v-for="(t, index) in tasks" :key="index" class="task item">
+                <div class="info-container">
+                    <v-checkbox v-model="t.active" dark></v-checkbox>
+                    <p :class="t.active ? 'strike' : ''">{{ t.name }}</p>
+                </div>
+                <v-icon @click="tasks.splice(index, 1)" dark>mdi-close</v-icon>
             </div>
-            <v-icon @click="tasks.splice(index, 1)" dark>mdi-close</v-icon>
-        </div>
+        </draggable>
     </div>
 </template>
 
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue, Watch } from 'vue-property-decorator';
-
+import draggable from 'vuedraggable';
 interface Task {
     name: string;
     active: boolean;
 }
 
-@Component({})
+@Component({
+    components: {
+        draggable,
+    },
+})
 export default class Tasks extends Vue {
     newTask = '';
     keyValue = true;
@@ -82,6 +94,11 @@ export default class Tasks extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.moving-card {
+    border: 1px solid;
+    border-color: #c13a3a;
+    opacity: 50%;
+}
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {
@@ -129,6 +146,7 @@ export default class Tasks extends Vue {
         color: #fff;
     }
 }
+
 .strike {
     text-decoration: line-through;
 }

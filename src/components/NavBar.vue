@@ -1,21 +1,50 @@
 <template>
-  <div>
+  <div class="nav">
     <v-container v-if="toggleMenu" class="menu">
       <p>content</p>
       <p>this is lit</p>
       <p>home</p>
     </v-container>
-    <div class="mx-lg-12 mx-4 pt-4 d-flex flex-row justify-space-between align-top">
+    <div
+      :style="$vuetify.breakpoint.smAndDown ? 'width: 100%; padding: 0 1rem;' : 'width: 60%; margin: 0 auto;'"
+      class="pt-4 d-flex flex-row justify-space-between align-top"
+    >
       <div>
         <p
+          style="
+        
+  color: #fff;
+  font-family: Esteban;
+  cursor: pointer;
+        "
           @click="$router.push({ path: '/' })"
-          class="white--text"
-          style="font-family: Esteban; cursor: pointer;"
         >pomodoro timer</p>
       </div>
-      <div v-if="$vuetify.breakpoint.mdAndDown" class="hamburger-container" @click="onClick()">
+      <div v-if="$vuetify.breakpoint.smAndDown" class="hamburger-container" @click="onClick()">
         <div :class="getLine1ClassName()"></div>
         <div :class="getLine2ClassName()"></div>
+      </div>
+      <div v-if="$vuetify.breakpoint.mdAndUp" class="d-flex flex-row">
+        <p
+          style="
+        
+  color: #fff;
+  font-family: Esteban;
+  cursor: pointer;
+        "
+          @click="$router.push({ path: '/' })"
+          class="mr-4"
+        >home</p>
+        <p
+          @click="$router.push({ path: '/pomodoro' })"
+          style="
+        
+  color: #fff;
+  font-family: Esteban;
+  cursor: pointer;
+        "
+          class="ml-4"
+        >timer</p>
       </div>
     </div>
   </div>
@@ -42,7 +71,10 @@ export default class NavBar extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nav {
+  background: #f48985;
+}
 .menu {
   position: absolute;
   z-index: 10;

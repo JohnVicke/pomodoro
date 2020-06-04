@@ -44,7 +44,7 @@ export default class LandingPage extends Vue {}
 .desktop-bg {
   background: url("../assets/desktop.svg");
   margin: 0;
-  padding-bottom: 330px;
+  padding-bottom: 275px;
   overflow-x: hidden;
 }
 
