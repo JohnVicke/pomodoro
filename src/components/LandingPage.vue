@@ -14,14 +14,12 @@
             color="#C13A3A"
             dark
             large
-            @click="$router.push({path: 'pomodoro'})"
-          >Get started</v-btn>
-          <v-icon
-            @click="$vuetify.goTo(700, 300)"
-            :dark="!$vuetify.breakpoint.xs"
-            large
-            class="mt-12"
-          >mdi-chevron-down</v-icon>
+            @click="$router.push({ path: 'pomodoro' })"
+            >Get started</v-btn
+          >
+          <v-icon @click="$vuetify.goTo(700, 300)" :dark="!$vuetify.breakpoint.xs" large class="mt-12"
+            >mdi-chevron-down</v-icon
+          >
         </div>
       </div>
     </v-container>
@@ -41,10 +39,19 @@ export default class LandingPage extends Vue {}
 }
 
 .desktop-bg {
-  background: url("../assets/desktop.svg");
+  position: relative;
+  background: url("../assets/desktop.svg") no-repeat;
+  background-size: auto;
   transform: scale(1.01);
-  padding-bottom: 275px;
+  padding-bottom: 400px;
   overflow-x: hidden;
+}
+
+@media only screen and (min-width: 1919px) {
+  .desktop-bg {
+    background-size: 100%;
+    padding-bottom: 52vh;
+  }
 }
 
 .mobile-bg {

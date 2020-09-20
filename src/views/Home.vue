@@ -14,8 +14,8 @@ import About from "@/components/About.vue";
 @Component({
   components: {
     LandingPage,
-    About
-  }
+    About,
+  },
 })
 export default class Home extends Vue {}
 </script>
